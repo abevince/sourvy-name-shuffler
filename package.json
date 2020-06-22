@@ -18,8 +18,12 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "run-p start:**",
+    "start:app": "react-scripts start",
+    "start:css": "cross-env NODE_ENV=development postcss src/styles/index.tailwind.css -o src/styles/index.css --watch",
+    "build": "run-p build:**",
+    "build:app": "react-scripts build",
+    "build:css": "cross-env NODE_ENV=production postcss src/styles/index.tailwind.css -o src/styles/index.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
