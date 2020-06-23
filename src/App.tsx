@@ -20,6 +20,10 @@ const names = [
   'Jerimiah',
   'Jericho',
   'Goku',
+  'Freiza',
+  'Son Gohan',
+  'Master Kamen',
+  'Superlongnamewihtoutspace',
 ]
 const App: React.FC = () => {
   const [name, setName] = useState('Shuffling!')
@@ -35,18 +39,19 @@ const App: React.FC = () => {
     for (let i = 0; i < names.length; i++) {
       await promisifyTimeout(() => {
         setName(names[i])
-      }, 100)
+      }, 200)
       // clearTimeout(timeoutId)
     }
   }, [])
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen text-xl">
-      <h1 className="text-6xl">{name}</h1>
-
+      <div className="w-screen h-64 px-4 text-center">
+        <h1 className="text-5xl truncate">{name}</h1>
+      </div>
       <button
         onClick={loopNames}
-        className="px-4 py-2 text-white bg-gray-800 rounded"
+        className="px-5 py-2 text-white bg-gray-800 rounded-lg"
       >
         Start!
       </button>
