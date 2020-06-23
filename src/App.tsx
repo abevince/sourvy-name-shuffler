@@ -1,51 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { useNames } from './context/NamesContext'
+import { promisifyTimeout, knuthShuffle } from './utils'
 
-function promisifyTimeout(
-  fn: () => void,
-  timeout: number
-): Promise<NodeJS.Timeout> {
-  return new Promise((resolve) => {
-    const timeOutId = setTimeout(() => {
-      fn()
-      resolve(timeOutId)
-    }, timeout)
-  })
-}
-const names = [
-  'Anie',
-  'Vince',
-  'Jerry',
-  'Alfred',
-  'Eugen',
-  'Jerimiah',
-  'Jericho',
-  'Goku',
-  'Freiza',
-  'Son Gohan',
-  'Master Kamen',
-  'Superlongnamewihtoutspace',
-]
 const App: React.FC = () => {
-  const [name, setName] = useState('Shuffling!')
+  const [name, setName] = useState('Start Shuffling!')
+  const [speed, setSpeed] = useState<number>(100)
   const [isShuffling, setIsShuffling] = useState<boolean>(false)
+  const speedRef = useRef<number>(speed)
 
-  // useEffect(() => {
-  //   const timeOut = setInterval(() => {
-  //     setName((prevName) => prevName + 1)
-  //   }, 1000)
-  //   return () => clearInterval(timeOut)
-  // }, [])
+  const { names } = useNames()
 
   const loopNames = React.useCallback(async () => {
+    window.scrollTo(0, 0)
     setIsShuffling(true)
-    for (let i = 0; i < names.length; i++) {
+    const randomizedNameKeys = knuthShuffle(Object.keys(names))
+    const length = randomizedNameKeys.length
+    const target = length <= 10 ? 1000 : 5000
+    const gain = (speed * length - target) / (length * (length + 1))
+    for (let i = 0; i < randomizedNameKeys.length; i++) {
       await promisifyTimeout(() => {
-        setName(names[i])
-      }, 200)
+        setName(names[randomizedNameKeys[i]])
+
+        i % 2 === 0
+          ? (speedRef.current = Math.floor(speedRef.current - gain))
+          : (speedRef.current = Math.floor(speedRef.current + gain * 3))
+      }, speedRef.current)
       // clearTimeout(timeoutId)
     }
+    speedRef.current = speed
     setIsShuffling(false)
-  }, [])
+  }, [names, speed])
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen text-xl">
