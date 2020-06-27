@@ -6,21 +6,20 @@ import shufflingGIF from '../assets/static/giraffe.gif'
 import congratsGIF from '../assets/static/congrats.gif'
 
 const ShufflerComponent: React.FC = () => {
+  const { names } = useNames()
   const [name, setName] = useState<string>('')
   const [speed, setSpeed] = useState<number>(100)
   const [isShuffling, setIsShuffling] = useState<boolean>(false)
   const speedRef = useRef<number>(speed)
 
-  const { names } = useNames()
-
   const loopNames = React.useCallback(async () => {
     window.scrollTo(0, 0)
     setIsShuffling(true)
-    const randomizedNameKeys = knuthShuffle(Object.keys(names))
-    const length = randomizedNameKeys.length
-    const target = length <= 10 ? 1000 : 5000
-    const gain = (speed * length - target) / (length * (length + 1))
-    for (let i = 0; i < randomizedNameKeys.length; i++) {
+    const randomizedNameKeys: string[] = knuthShuffle(Object.keys(names))
+    const length: number = randomizedNameKeys.length
+    const target: number = length <= 10 ? 1000 : 5000
+    const gain: number = (speed * length - target) / (length * (length + 1))
+    for (let i = 0; i < length; i++) {
       await promisifyTimeout(() => {
         setName(names[randomizedNameKeys[i]])
 
