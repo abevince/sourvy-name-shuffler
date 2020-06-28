@@ -8,6 +8,7 @@ import congratsGIF from '../assets/static/congrats.gif'
 const ShufflerComponent: React.FC = () => {
   const { names } = useNames()
   const [name, setName] = useState<string>('')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [speed, setSpeed] = useState<number>(100)
   const [isShuffling, setIsShuffling] = useState<boolean>(false)
   const speedRef = useRef<number>(speed)
