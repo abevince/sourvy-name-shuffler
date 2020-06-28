@@ -35,7 +35,7 @@ const ShufflerComponent: React.FC = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-end px-4 text-center h-80">
+      <div className="flex flex-col justify-end px-4 text-center min-w-100 h-80">
         <img
           className={`rounded mx-auto h-0 scale-0 transition transform ease-in-out duration-150 ${
             !isShuffling && name === '' && 'scale-100 h-40'
