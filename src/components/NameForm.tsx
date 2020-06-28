@@ -23,13 +23,13 @@ const NameForm: React.FC = () => {
       <form
         onSubmit={handleSubmit}
         autoComplete="off"
-        className={`relative pt-6 pb-1 transition-all duration-300 border-b-2 border-transparent rounded ${
+        className={` relative pt-6 pb-1 transition-all duration-300 border-b-2 border-transparent rounded ${
           isActive ? 'border-cool-gray-400' : 'border-cool-gray-200'
         }`}
       >
-        <InputLabel isActive={isActive || name !== ''} label="Name" />
+        <InputLabel isActive={isActive || name !== ''} label="Enter name" />
         <input
-          className="px-2 py-2 focus:outline-none text-cool-gray-600"
+          className="px-2 py-2 text-lg focus:outline-none text-cool-gray-600"
           type="text"
           name="name"
           onChange={handleInput}
