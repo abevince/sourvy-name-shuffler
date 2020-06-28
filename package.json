@@ -1,7 +1,9 @@
 {
-  "name": "name-shuffler",
+  "name": "sourvy-name-shuffler",
   "version": "0.1.0",
   "private": true,
+  "author": "Vincent Abesamis",
+  "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
